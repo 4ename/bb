@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<div>
+</div>
+<script>
+docbeat=[];
+function addNew(){
+var a=[document.createElement("input"),
+document.createElement("input"),
+document.createElement("tr"),
+document.getElementById("beat")]
+a[0].type="text";
+a[1].type="number";
+a[0].placeholder="f";
+a[1].placeholder="t";
+a[2].appendChild(a[0]);
+a[2].appendChild(a[1]);
+a[3].appendChild(a[2]);
+docbeat.push(a[2]);
+}
+function remove(b){
+docbeat[b-1].hidden=true;
+docbeat.splice(b-1,1);
+}
+function p(){
+this.nb=function(a,b){
+this.f=a;
+this.t=parseInt(b);
+}
+beat=[]
+for (i=0;i<docbeat.length;i++){
+beat[i]=new nb(docbeat[i].children[0].value,docbeat[i].children[1].value);
+}
+window.beat=beat;
+}
+function gs(f,t){
+k=f;
+for (var i in Math){
+for (var j=0; j<=f.length; j++){
+k=k.replace(i,"Math."+i)
+}
+}
+return eval("(function(t){return "+k+";})("+t+")")
+
+}
+
+audioContext = new AudioContext();
+
+function runForm(f){
+
+let myBuffer = audioContext.createBuffer(1, beat[f].t, parseInt(document.getElementById("s").value));
+let left = myBuffer.getChannelData(0);
+for (let F = 0 ; F < beat[f].t; F++) {
+  left[F] = (gs(beat[f].f,F)-127)/255;
+}
+let src = audioContext.createBufferSource();
+src.buffer = myBuffer;
+src.connect(audioContext.destination);
+src.start();
+return true;
+}
+
+
+</script>
+</head>
+<body>
+<button onclick="runForm0()">Play all</button>
+<input id="s" type="number" placeholder="s" style="width:50px">
+<button onclick="addNew()">A</button><button onclick="remove(document.getElementById('a').value)">R</button><input id="a" type="number"></input>
+<table id="beat">
+
+
+</table>
+
+
+
+</body>
+
+</html>
