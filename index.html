@@ -46,13 +46,31 @@ return eval("(function(t){return "+k+";})("+t+")")
 }
 
 audioContext = new AudioContext();
-
-function runForm(f){
+function runForms(forms){
+d="";
+for (var a=0; a<forms.length; a++){
+c=0;
+for (var b=1; b<=a; b++){
+c=c+forms[b].t;
+}
+e=0;
+for (var f=0; f<=a; f++){
+e=e+forms[f].t;
+}
+if (a==0){
+d="t<"+e+"?"+(forms[a].f.split("t").join("(t+"+c+")"))
+} else {
+d=d+":t<"+e+"?"+(forms[a].f.split("t").join("(t+"+c+")"))
+}
+}
+return d;
+}
+function runForm(){
 
 let myBuffer = audioContext.createBuffer(1, beat[f].t, parseInt(document.getElementById("s").value));
 let left = myBuffer.getChannelData(0);
 for (let F = 0 ; F < beat[f].t; F++) {
-  left[F] = (gs(beat[f].f,F)-127)/255;
+  left[F] = (gs(runForms(beat),F)-127)/255;
 }
 let src = audioContext.createBufferSource();
 src.buffer = myBuffer;
@@ -65,7 +83,7 @@ return true;
 </script>
 </head>
 <body>
-<button onclick="runForm0()">Play all</button>
+<button onclick="runForm()">Play all</button>
 <input id="s" type="number" placeholder="s" style="width:50px">
 <button onclick="addNew()">A</button><button onclick="remove(document.getElementById('a').value)">R</button><input id="a" type="number"></input>
 <table id="beat">
