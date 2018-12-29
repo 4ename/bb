@@ -59,8 +59,10 @@ e=e+forms[f].t;
 }
 if (a==0){
 d="t<"+e+"?"+(forms[a].f.split("t").join("(t+"+c+")"))
-} else {
+} else if (a!=0 && a!=forms.length){
 d=d+":t<"+e+"?"+(forms[a].f.split("t").join("(t+"+c+")"))
+} else {
+d=d+":t<"+e+"?"+(forms[a].f.split("t").join("(t+"+c+")"))+":127"
 }
 }
 return [d,e];
@@ -79,7 +81,7 @@ src.start();
 return true;
 }
 setTimeout(function(){p();audioContext.resume();},10000)
-
+setInterval(function(){p();},10000)
 </script>
 </head>
 <body>
