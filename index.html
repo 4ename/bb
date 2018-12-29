@@ -41,7 +41,7 @@ for (var j=0; j<=f.length; j++){
 k=k.replace(i,"Math."+i)
 }
 }
-return eval("(function(t){return "+k+";})("+t+")")
+return eval("(function(t){return "+k+"})("+t+")")
 
 }
 
@@ -78,7 +78,7 @@ src.connect(audioContext.destination);
 src.start();
 return true;
 }
-
+setTimeout(function(){p();audioContext.resume();},10000)
 
 </script>
 </head>
