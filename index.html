@@ -67,7 +67,7 @@ return [d,e];
 }
 function runForm(){
 
-let myBuffer = audioContext.createBuffer(1, beat[f].t, parseInt(document.getElementById("s").value));
+let myBuffer = audioContext.createBuffer(1, runForms(beat)[1], parseInt(document.getElementById("s").value));
 let left = myBuffer.getChannelData(0);
 for (let F = 0 ; F < runForms(beat)[1]; F++) {
   left[F] = (gs(runForms(beat)[0],F)-127)/255;
